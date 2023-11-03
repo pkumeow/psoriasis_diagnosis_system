@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>识别结果</title>
+    <link rel="icon" href="/static/img/icon.svg" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/static/img/icon.svg" type="image/x-icon"/>
+    <style>
+        body{
+            width: 100%;
+            background-color: white;
+        }
+        .textbox{
+            margin: auto;
+            width: 70%;
+            padding: 50px;
+        }
+        .textbox p{
+            line-height: 1.5;
+        }
+        h1{
+            text-align: center;
+            color: rgb(75, 162, 216);
+            padding: 100px 0 140px 0;
+        }
+        .line{
+            margin: auto;
+            width: 80%;
+            
+        }
+        .tail{
+            border-top: 1.5px solid rgb(42, 122, 172);
+            margin: 50px auto 0 auto;
+            width: 70%;
+            padding: 20px 20px 0 20px;
+        }
+        .tail p{
+            font-size: small;
+            line-height: 1.5;
+            color: gray;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="textbox"><p>经过人工智能识别，根据您填写的问卷调查信息以及您上传的患病处图片，我们初步认定您的病情为：</p>
+        <h1>{{ result }}</h1>
+        <p>{{ suggest }}</p>
+    </div>
+    <div class="tail"><p>是否使用本产品是您的自愿行为，请知悉。作为产品开发者，我们承诺不会在后台收集任何您提供的信息。人工智能识别给出的结果仅供参考，如您感到身体不适，建议您及时前往医院进行诊断。处方药的使用必须受医生监督，切不可自行用药。由产品引起的纠纷和造成的一切后果，责任概由使用者自行承担，与产品开发者无关。特此声明！</p></div>
+    
+</body>
+
+</html>

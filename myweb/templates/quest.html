@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>调查表</title>
+    <link rel="icon" href="/static/img/icon.svg" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/static/img/icon.svg" type="image/x-icon"/>
+    <style>
+        table {
+            border-spacing: 0;
+            border-left: 1px solid rgb(42, 122, 172);
+            border-top: 1px solid rgb(42, 122, 172);
+            margin: 0 auto;}
+        td{
+            border-right: 1px solid rgb(42, 122, 172);
+            border-bottom: 1px solid rgb(42, 122, 172);
+            padding-top: 10px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+            padding-left: 10px; 
+            text-align: center;
+            
+        }
+        caption{
+            font-size: 27px;
+            padding: 20px;
+
+        }
+        .tail{
+            border-top: 1.5px solid rgb(42, 122, 172);
+            margin: 50px auto 0 auto;
+            width: 70%;
+            padding: 20px 20px 0 20px;
+        }
+        .tail p{
+            font-size: small;
+            line-height: 1.5;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <form action="/quest/" method="post" enctype="multipart/form-data" width="500px" cellpadding="20">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td colspan=2>
+                    <thead><caption>相关信息调查</caption></thead>
+                </td>
+            </tr>
+            <tr>
+                <td>性别</td>
+                <td> 
+                    <input type="radio" name="gender" value=1 required/>男
+                    <input type="radio" name="gender" value=0 />女
+                </td>
+            </tr>
+            <tr>
+                <td>年龄</td>
+                <td>
+
+                    <input type="number" value=20 name="age" required/>
+                </td>
+                
+            </tr>
+            <tr>
+                <td>本次是否为复发</td>
+                <td> 
+                    <input type="radio" name="again" onchange="show_again(['again_freq'])" value=1 required>是
+                    <input type="radio" name="again" onchange="hide_again(['again_freq'])" value=0 >否
+                </td>
+            </tr>
+            <tr id="again_freq" style="display: none">
+                <td>若本次为复发，每年发作频率</td>
+                <td> 
+                    <input type="radio" name="freq" value=0 >不是复发
+                    <input type="radio" name="freq" value=1>小于一次
+                    <input type="radio" name="freq"  value=2>一至两次
+                    <br />
+                    <input type="radio" name="freq"  value=3>三至五次
+                    <input type="radio" name="freq"  value=4>大于五次
+                    <input type="radio" name="freq"  value=5>持续
+                    <input type="radio" name="freq"  value=6>逐渐
+                </td>
+            </tr>
+            <tr>
+                <td>本次病情已经持续几个月</td>
+                <td>
+
+                    <input type="number" value=1 name="month" required/>
+                </td>               
+            </tr>
+            <tr>
+                <td>是否有亲属患同样疾病</td>
+                <td> 
+                    <input type="radio" name="relative" value=1 required>有
+                    <input type="radio" name="relative" value=0>没有或不清楚
+                </td>
+            </tr>
+            <tr>
+                <td>起病是否有诱因（多选）</td>
+                <td>
+                    <input type="checkbox" name="reason" value=0>劳累
+                    <input type="checkbox" name="reason" value=1>精神压力大
+                    <input type="checkbox" name="reason" value=2>感染感冒、咳嗽、腹泻、发烧等）
+                    <input type="checkbox" name="reason" value=3>季节变换
+                </br>
+                    <input type="checkbox" name="reason" value=4>吸烟
+                
+                    <input type="checkbox" name="reason" value=5>饮酒
+                    <input type="checkbox" name="reason" value=6>油腻饮食
+                    <input type="checkbox" name="reason" value=7>妊娠
+                    <input type="checkbox" name="reason" value=8>免疫力下降
+                    <input type="checkbox" name="reason" value=9>其他
+                </td>
+            </tr>
+            <tr>
+                <td>病情是否出现冬重夏轻的情况</td>
+                <td> 
+                    <input type="radio" name="season" value=1 required>是
+                    <input type="radio" name="season"  value=0>否
+                </td>
+            </tr>
+            <tr>
+                <td>患病位置包括（多选）</td>
+                <td>
+                    <input id="onhead" type="checkbox" name="place" value=0 onchange="checkbox_show(['hair_place','head_place'],this)">头皮
+                    <input type="checkbox" name="place" value=1>上肢
+                    <input type="checkbox" name="place" value=2>下肢
+                    <input type="checkbox" name="place" value=3>躯干
+                    </br>
+                    <input type="checkbox" name="place" value=4>会阴区
+                    <input type="checkbox" name="place" value=5>面部及脖子
+                </td>
+            </tr>
+            <tr id="hair_place" style="display: none">
+                <td>如果患病位置包含头皮，</br>是否曾出现头发呈束状的现象</td>
+                <td> 
+                    <input type="radio" name="hair" value=1>是
+                    <input type="radio" name="hair"  value=0>否
+                </td>
+            </tr>
+            <tr id='head_place' style="display: none">
+                <td>如果患病位置包含头皮，</br>皮损是否超出发际线并累及额头皮肤</td>
+                <td> 
+                    <input type="radio" name="head" value=1>是
+                    <input type="radio" name="head"  value=0>否
+                </td>
+            </tr>
+            <tr >
+                <td>皮损上方是否可见鳞屑</td>
+                <td> 
+                    <input type="radio" name="skin" value=1 required onchange="show_again(['skin_scales','skin_thick','skin_peel','skin_flim','skin_blood'])">是
+                    <input type="radio" name="skin"  value=0 required onchange="hide_again(['skin_scales','skin_thick','skin_peel','skin_flim','skin_blood'])">否
+                </td>
+            </tr>
+            <tr id='skin_scales' style="display: none">
+                <td>若皮损上方可见鳞屑，</br>您如何形容这些鳞屑</td>
+                <td> 
+                    <input type="radio" name="scales"  value=1>细碎
+                    <input type="radio" name="scales" value=2>片状
+                </td>
+            </tr>
+            <tr id='skin_thick' style="display: none">
+                <td>皮损上方鳞屑是否较厚、不止一层</td>
+                <td> 
+                    <input type="radio" name="thick"  value=1>否
+                    <input type="radio" name="thick"  value=2>是
+                </td>
+            </tr>
+            <tr id='skin_peel' style="display: none">
+                <td>皮损上方鳞屑是否容易剥除</td>
+                <td> 
+                    <input type="radio" name="peel"  value=1>否
+                    <input type="radio" name="peel"  value=2>是
+                </td>
+            </tr>
+            <tr id='skin_flim' style="display: none">
+                <td>鳞屑剥除后是否可显露出红色半透明薄膜样皮肤</td>
+                <td> 
+                    <input type="radio" name="flim"  value=1>否
+                    <input type="radio" name="flim"  value=2>是
+                </td>
+            </tr>
+            <tr id='skin_blood' style="display: none">
+                <td>鳞屑剥除后是否曾见到点状出血</td>
+                <td> 
+                    <input type="radio" name="blood"  value=1>否
+                    <input type="radio" name="blood"  value=2>是
+                </td>
+            </tr>
+            <tr>
+                <td>指（趾）甲是否有异常</td>
+                <td> 
+                    <input type="checkbox" name="nail" value=0>出现点状凹陷
+                    <input type="checkbox" name="nail"   value=1>甲增厚浑浊
+                    <input type="checkbox" name="nail"   value=2>无光泽
+                </td>
+            </tr>
+            <tr>
+                <td>是否伴随着关节疼痛或畸形</td>
+                <td> 
+                    <input type="radio" name="joint" value=1 required>是
+                    <input type="radio" name="joint"  value=0>否
+                </td>
+            </tr>
+            <tr>
+                <td>皮肤患处是否有症状（多选）</td>
+                <td>
+                    <input type="checkbox" name="symptom" value=0>瘙痒
+                    <input type="checkbox" name="symptom" value=1>疼痛
+                </td>
+            </tr>
+            <tr>
+                <td>上传照片</td>
+                <td>
+                    <img id="preview" width="400" height="300"/>
+                    <input type="file" name="photo" accept="image/jpeg, image/jpg, image/png" onchange="imgPreview(this)" required>
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <input type="submit" value="提交" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div class="tail"><p>是否使用本产品是您的自愿行为，请知悉。作为产品开发者，我们承诺不会在后台收集任何您提供的信息。人工智能识别给出的结果仅供参考，如您感到身体不适，建议您及时前往医院进行诊断。处方药的使用必须受医生监督，切不可自行用药。由产品引起的纠纷和造成的一切后果，责任概由使用者自行承担，与产品开发者无关。特此声明！</p></div>
+    <script>
+        function hide_again(id){
+            for(var i=0;i<id.length;i++){
+                var row = document.getElementById(id[i]);
+                var children = row.getElementsByTagName("input");
+                    //遍历子元素，当元素是DIV时，返回这个元素
+                if(row.style.display != "none") {
+                for (var j = 0; j < children.length; j++) {
+
+                    children[j].required=false;
+
+                }}
+                row.style.display = "none";
+
+            }
+
+            //document.getElementById( id).style.visibility= "hidden "; 
+		}
+        function show_again(id){
+            for(var i=0;i<id.length;i++){
+                var row = document.getElementById(id[i]);
+                row.style.display = (document.all ? "block" : "table-row");
+                if(row.style.display != "none") {
+                    var children = row.getElementsByTagName("input");
+                    //alert(children.length)
+                        //遍历子元素，当元素是DIV时，返回这个元素
+                    for (var j = 0; j < children.length; j++) {
+                        
+                        children[j].required=true;
+
+                    }
+                }
+            }
+
+            //document.getElementById( id).style.visibility= "visible "; 
+		}
+        function checkbox_show(id,my){
+            
+            if ( my.checked == true){
+                for(var i=0;i<id.length;i++){
+                    var row = document.getElementById(id[i]);
+                    row.style.display = (document.all ? "block" : "table-row");
+                    if(row.style.display != "none") {
+                    var children = row.getElementsByTagName("input");
+                    //遍历子元素，当元素是DIV时，返回这个元素
+                    for (var j = 0; j < children.length; j++) {
+                        //print(children[i].nodeName);
+                        children[j].required=true;
+
+                    }}
+                }
+            }
+            else{
+                for(var i=0;i<id.length;i++){
+                    var row = document.getElementById(id[i]);
+                    if(row.style.display != "none") {
+                    var children = row.getElementsByTagName("input");
+                    //遍历子元素，当元素是DIV时，返回这个元素
+                    for (var j = 0; j < children.length; j++) {
+                        //print(children[i].nodeName);
+                        children[j].required=false;
+
+                    }}
+                    row.style.display = "none";
+
+
+                }
+
+
+            }
+  
+ 
+        }
+        // do something
+        function imgPreview(fileDom){
+        //判断是否支持FileReader
+        if (window.FileReader) {
+            var reader = new FileReader();
+        } else {
+            alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+        }
+
+        //获取文件
+        var file = fileDom.files[0];
+        var imageType = /^image\//;
+        //是否是图片
+        if (!imageType.test(file.type)) {
+            alert("请选择图片！");
+            return;
+        }
+        //读取完成
+        reader.onload = function(e) {
+            //获取图片dom
+            var img = document.getElementById("preview");
+            //图片路径设置为读取的图片
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+    </script>
+</body>
+
+</html>
